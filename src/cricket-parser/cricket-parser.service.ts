@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import { AppService } from 'src/app.service';
 import { Repository } from 'typeorm';
 import { CricketDto } from './dto/cricket.dto';
+import FilterParameters from './dto/filterParams.dto';
 import { CricketEntity } from './entity/cricket.entity';
 @Injectable()
 export class CricketParserService {
@@ -19,8 +20,8 @@ export class CricketParserService {
       for (let index = 0; index < text.length; index++) {
          const match = text[index];
          let matchExists = await this.getMatchById(match.id);
-         if(matchExists) {
-            await this.cricketRepository.update(match.id,match);
+         if (matchExists) {
+            await this.cricketRepository.update(match.id, match);
          } else {
             await this.cricketRepository.save(match);
          }
@@ -34,6 +35,10 @@ export class CricketParserService {
 
    async getMatchById(id: string | number) {
       return await this.cricketRepository.findOne(id)
+   }
+
+   async getMatchByParams(params: FilterParameters) {
+      return await this.cricketRepository.find(params);
    }
 
    async deleteAllMatches() {

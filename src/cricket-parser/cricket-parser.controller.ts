@@ -4,8 +4,8 @@ import FilterParameters from './dto/filterParams.dto';
 
 @Controller('ipl')
 export class CricketParserController {
-   constructor(private readonly cricketParserService: CricketParserService) {
 
+   constructor(private readonly cricketParserService: CricketParserService) {
    }
 
    @Get("parser")
@@ -21,8 +21,8 @@ export class CricketParserController {
    }
 
    @Post("filter")
-   async getMatchbyParameters(@Body() filterParams:FilterParameters) {
-     return filterParams;
+   async getMatchbyParameters(@Body() filterParams: FilterParameters) {
+      return this.cricketParserService.getMatchByParams(filterParams);
    }
 
    @Get("clearDb")
