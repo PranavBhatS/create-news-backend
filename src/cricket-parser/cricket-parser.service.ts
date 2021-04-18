@@ -26,11 +26,11 @@ export class CricketParserService {
             await this.cricketRepository.save(match);
          }
       }
-      return this.getAllData();
+      return;
    }
 
-   async getAllData() {
-      return await this.cricketRepository.find();
+   async getAllData(start: number, limit: number) {
+      return await this.cricketRepository.createQueryBuilder("cricket").limit(limit).offset(start).getMany();
    }
 
    async getMatchById(id: string | number) {
