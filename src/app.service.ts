@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'Hello World!';
+    return ' well come to pranav"s ipl updates !';
   }
   getDirectory() {
     return __dirname
