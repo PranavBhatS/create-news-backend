@@ -23,7 +23,7 @@ export class CricketParserController {
       return { ...parsedData }
    }
 
-   @ApiBody({ type: [FilterParameters] })
+   @ApiBody({ type: FilterParameters,required:false })
    @Post("filter")
    async getMatchbyParameters(@Body() filterParams: FilterParameters) {
       return this.cricketParserService.getMatchByParams(filterParams);
