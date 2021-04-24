@@ -3,15 +3,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as fs from 'fs';
 import { AppService } from 'src/app.service';
 import { Repository } from 'typeorm';
-import { CricketDto } from './dto/cricket.dto';
-import FilterParameters from './dto/filterParams.dto';
-import { CricketEntity } from './entity/cricket.entity';
+import { CricketDto } from './dto/match.dto';
+import FilterParameters from './dto/matchFilter.dto';
+import { MatchEntity } from './entity/match.entity';
 @Injectable()
 export class CricketParserService {
 
    constructor(
-      @InjectRepository(CricketEntity)
-      private cricketRepository: Repository<CricketEntity>,
+      @InjectRepository(MatchEntity)
+      private matchRepository: Repository<MatchEntity>,
       private appService: AppService
    ) { }
 
@@ -21,28 +21,28 @@ export class CricketParserService {
          const match = text[index];
          let matchExists = await this.getMatchById(match.id);
          if (matchExists) {
-            await this.cricketRepository.update(match.id, match);
+            await this.matchRepository.update(match.id, match);
          } else {
-            await this.cricketRepository.save(match);
+            await this.matchRepository.save(match);
          }
       }
       return;
    }
 
    async getAllData(start: number, limit: number) {
-      return await this.cricketRepository.createQueryBuilder("cricket").limit(limit).offset(start).getMany();
+      return await this.matchRepository.createQueryBuilder("match").limit(limit).offset(start).getMany();
    }
 
    async getMatchById(id: string | number) {
-      return await this.cricketRepository.findOne(id)
+      return await this.matchRepository.findOne(id)
    }
 
    async getMatchByParams(params: FilterParameters) {
-      return await this.cricketRepository.find(params);
+      return await this.matchRepository.find(params);
    }
 
    async deleteAllMatches() {
-      return await this.cricketRepository.clear()
+      return await this.matchRepository.clear()
    }
 
 }

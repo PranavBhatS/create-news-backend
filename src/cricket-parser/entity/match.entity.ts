@@ -1,9 +1,9 @@
 import { Column, Entity, PrimaryColumn } from "typeorm";
 
 @Entity({
-   name: 'cricket'
+   name: 'Match'
 })
-export class CricketEntity {
+export class MatchEntity {
    @PrimaryColumn()
    id: string;
 
